@@ -3,23 +3,6 @@
     "description": "Resource schema for AWS::Route53Resolver::OutpostResolver.",
     "sourceUrl": "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
     "definitions": {
-        "InitechDateFormat": {
-            "$comment": "Use the `definitions` block to provide shared resource property schemas",
-            "type": "string",
-            "format": "date-time"
-        },
-        "Memo": {
-            "type": "object",
-            "properties": {
-                "Heading": {
-                    "type": "string"
-                },
-                "Body": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false
-        },
         "Tag": {
             "description": "A key-value pair to associate with a resource.",
             "type": "object",
@@ -65,16 +48,6 @@
         },
         "Arn": {
             "description": "The OutpostResolver ARN.",
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 1024
-        },
-        "MaxResults": {
-            "description": "The OutpostResolver MaxResults from List handler.",
-            "type": "integer"
-        },
-        "NextToken": {
-            "description": "The OutpostResolver NextToken from List handler.",
             "type": "string",
             "minLength": 1,
             "maxLength": 1024
@@ -129,6 +102,13 @@
         }
     },
     "additionalProperties": false,
+    "tagging": {
+        "taggable": true,
+        "tagOnCreate": true,
+        "tagUpdatable": true,
+        "cloudFormationSystemTags": true,
+        "tagProperty": "/properties/Tags"
+    },
     "required": [
         "OutpostArn",
         "PreferredInstanceType",
@@ -139,9 +119,12 @@
         "/properties/Arn",
         "/properties/Status",
         "/properties/StatusMessage",
-        "/properties/CreatorRequestId",
         "/properties/CreationTime",
-        "/properties/ModificationTime"
+        "/properties/ModificationTime",
+        "/properties/CreatorRequestId"
+    ],
+    "createOnlyProperties": [
+        "/properties/OutpostArn"
     ],
     "primaryIdentifier": [
         "/properties/Id"
@@ -151,6 +134,7 @@
             "permissions": [
                 "route53resolver:CreateOutpostResolver",
                 "route53resolver:GetOutpostResolver",
+                "route53resolver:ListTagsForResource",
                 "outposts:GetOutpost"
             ]
         },
